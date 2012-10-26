@@ -1,0 +1,117 @@
+#+TITLE: LCCH Project
+#+Startup: content
+# LocalWords:  LCCH Shen
+
+* Ideas
+
+** "Concepts"
+- creativity usually guided by "concepts" on different levels
+- possible bridge between randomness and determinism
+- resembles the overall "plan" as well as a simple "idea"
+- concepts can be statements using other concepts (e.g. a scale is a list of notes)
+- terms:
+  - concept :: pattern, rule, idea
+    - used as scaffold or template
+  - meta-concept :: a pattern of concepts
+    - instances of meta-concepts are concepts again (e.g. a major scale is a scale)
+    - in fact no difference to concept, every concept is a meta-concept.
+    - instance that is no concept (can not be further instantiated) is the final piece.
+
+*** Examples of concepts in music
+- note (duration, pitch, etc)
+- rhythm 
+- motif
+- intervals
+- scales
+- Sonata form
+
+*** Example of conceptual music
+- a composer writes a
+  - melody
+  - in A-A-B form, consisting of 8+8+8 bars
+  - in 4/4
+  - in C major (for simplicity between c' and c'')
+  - consisting of only quarter notes
+- necessary /technical/ concepts:
+  - melody :: sequence of *notes*
+  - A-A-B form :: 2 melody parts (*melody*), where the first one is repeated
+  - bar :: time period containing being an integer multiple of some *note value*
+  - 4/4 :: an specific parameter for a *bar*, consisting of 4 *quarter notes*
+  - quarter note :: a *note value*, being 1/4 of a whole note
+  - C major :: (here:) the ordered set of *note heights*: {c',d',e',f',g',a',h',c''}
+  - note :: consists of a *note height* and a *note value*
+  - note height :: basic concept, refers to the actual frequency of the played sound
+  - note value :: basic concept, a relative time value, together with a tempo results in the note's duration
+- necessary /creative/ concepts:
+  - one or more ideas which can be
+    - concrete parts of music (here only melodies), e.g. a motif or theme
+    - concepts combining these (e.g. by repetition)
+    - further constraints given by instantiating existing concepts
+      (in fact, the chosen set of technical concepts belongs to this group,
+      so the used technical concepts are actually creative concepts)
+	   
+** Concept generation
+- extraction from input:
+  - source: 
+    - given by the user
+    - given by other programs / instances of this program
+    - created randomly
+  - strategy:
+    1. try to fit the input into existing concepts
+    2. find group concepts and find abstractions (meta-concepts)
+- automatic generation:
+  to be done
+- exchange with other instances:
+  somewhat similar to the input based strategy
+
+** Concept usage
+- the concept database is used to generate material
+- concept engine used as library
+
+*** Forms of material creation
+- as a "stream of ideas"
+  - continuously generates material randomly from the concepts.
+  - simple, fast decisions
+  - useful for live use cases, improvising
+- in a constructive way:
+  - material is a single instance of one meta-concept (e.g. a symphony), generated as a whole
+  - material is generated from high-level meta-concepts and repeatedly refined
+
+*** Uses cases
+- live performance/improvisation:
+  The program gets/generates some initial input and starts to improvise.
+  The user can give additional input at runtime to influence the improvisation
+  - variant: together with other instances
+- offline composition, with/without initial input
+
+** Open questions
+- can concepts be extended to contain general (logical) knowledge?
+- how can actions be derived from concepts?
+- model of concepts? (-> Implementation)
+
+* Implementation
+
+** Ideas
+- language:
+  - Shen
+    - pros: Lisp, built-in Prolog engine, lexer, etc
+    - cons: have to learn it, almost no libraries/tools/etc, difficult setup, nobody else knows it
+  - Common Lisp
+    - pros: Lisp, already know it, many libraries
+    - cons: few people know/like it
+  - ???
+
+* Goals
+My goal for the project is a program generating music live and continuously based on some input given by the user
+- main project goals:
+  1. [ ] concepts for very basic model (music)
+  2. [ ] idea stream
+  3. [ ] running program
+- optional project goals:
+  1. [ ] some kind of concept extraction/generation
+  2. [ ] less restricted concept model (still music)
+  3. [ ] offline composition mode
+- further goals:
+  1. [ ] more general concept model
+  2. [ ] exchange with other concept databases (collaboration)
+  3. [ ] 

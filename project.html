@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>LCCH Project</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="LCCH Project"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-10-26 19:11:34 EEST"/>
+<meta name="author" content="Christoph Finkensiep"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">LCCH Project</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Ideas</a>
+<ul>
+<li><a href="#sec-1-1">1.1 "Concepts"</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1 Examples of concepts in music</a></li>
+<li><a href="#sec-1-1-2">1.1.2 Example of conceptual music</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2 Concept generation</a></li>
+<li><a href="#sec-1-3">1.3 Concept usage</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 Forms of material creation</a></li>
+<li><a href="#sec-1-3-2">1.3.2 Uses cases</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4 Open questions</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Implementation</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Ideas</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Goals</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Ideas</h2>
+<div class="outline-text-2" id="text-1">
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> "Concepts"</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li>creativity usually guided by "concepts" on different levels
+</li>
+<li>possible bridge between randomness and determinism
+</li>
+<li>resembles the overall "plan" as well as a simple "idea"
+</li>
+<li>concepts can be statements using other concepts (e.g. a scale is a list of notes)
+</li>
+<li>terms:
+<dl>
+<dt>concept</dt><dd>pattern, rule, idea
+<ul>
+<li>used as scaffold or template
+</li>
+</ul>
+
+</dd>
+<dt>meta-concept</dt><dd>a pattern of concepts
+<ul>
+<li>instances of meta-concepts are concepts again (e.g. a major scale is a scale)
+</li>
+<li>in fact no difference to concept, every concept is a meta-concept.
+</li>
+<li>instance that is no concept (can not be further instantiated) is the final piece.
+</li>
+</ul>
+
+</dd>
+</dl>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Examples of concepts in music</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+<ul>
+<li>note (duration, pitch, etc)
+</li>
+<li>rhythm 
+</li>
+<li>motif
+</li>
+<li>intervals
+</li>
+<li>scales
+</li>
+<li>Sonata form
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Example of conceptual music</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+<ul>
+<li>a composer writes a
+<ul>
+<li>melody
+</li>
+<li>in A-A-B form, consisting of 8+8+8 bars
+</li>
+<li>in 4/4
+</li>
+<li>in C major (for simplicity between c' and c'')
+</li>
+<li>consisting of only quarter notes
+</li>
+</ul>
+
+</li>
+<li>necessary <i>technical</i> concepts:
+<dl>
+<dt>melody</dt><dd>sequence of <b>notes</b>
+</dd>
+<dt>A-A-B form</dt><dd>2 melody parts (<b>melody</b>), where the first one is repeated
+</dd>
+<dt>bar</dt><dd>time period containing being an integer multiple of some <b>note value</b>
+</dd>
+<dt>4/4</dt><dd>an specific parameter for a <b>bar</b>, consisting of 4 <b>quarter notes</b>
+</dd>
+<dt>quarter note</dt><dd>a <b>note value</b>, being 1/4 of a whole note
+</dd>
+<dt>C major</dt><dd>(here:) the ordered set of <b>note heights</b>: {c',d',e',f',g',a',h',c''}
+</dd>
+<dt>note</dt><dd>consists of a <b>note height</b> and a <b>note value</b>
+</dd>
+<dt>note height</dt><dd>basic concept, refers to the actual frequency of the played sound
+</dd>
+<dt>note value</dt><dd>basic concept, a relative time value, together with a tempo results in the note's duration
+</dd>
+</dl>
+
+</li>
+<li>necessary <i>creative</i> concepts:
+<ul>
+<li>one or more ideas which can be
+<ul>
+<li>concrete parts of music (here only melodies), e.g. a motif or theme
+</li>
+<li>concepts combining these (e.g. by repetition)
+</li>
+<li>further constraints given by instantiating existing concepts
+      (in fact, the chosen set of technical concepts belongs to this group,
+      so the used technical concepts are actually creative concepts)
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Concept generation</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>extraction from input:
+<ul>
+<li>source: 
+<ul>
+<li>given by the user
+</li>
+<li>given by other programs / instances of this program
+</li>
+<li>created randomly
+</li>
+</ul>
+
+</li>
+<li>strategy:
+<ol>
+<li>try to fit the input into existing concepts
+</li>
+<li>find group concepts and find abstractions (meta-concepts)
+</li>
+</ol>
+
+</li>
+</ul>
+
+</li>
+<li>automatic generation:
+  to be done
+</li>
+<li>exchange with other instances:
+  somewhat similar to the input based strategy
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Concept usage</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<ul>
+<li>the concept database is used to generate material
+</li>
+<li>concept engine used as library
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> Forms of material creation</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+<ul>
+<li>as a "stream of ideas"
+<ul>
+<li>continuously generates material randomly from the concepts.
+</li>
+<li>simple, fast decisions
+</li>
+<li>useful for live use cases, improvising
+</li>
+</ul>
+
+</li>
+<li>in a constructive way:
+<ul>
+<li>material is a single instance of one meta-concept (e.g. a symphony), generated as a whole
+</li>
+<li>material is generated from high-level meta-concepts and repeatedly refined
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Uses cases</h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+<ul>
+<li>live performance/improvisation:
+  The program gets/generates some initial input and starts to improvise.
+  The user can give additional input at runtime to influence the improvisation
+<ul>
+<li>variant: together with other instances
+</li>
+</ul>
+
+</li>
+<li>offline composition, with/without initial input
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Open questions</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<ul>
+<li>can concepts be extended to contain general (logical) knowledge?
+</li>
+<li>how can actions be derived from concepts?
+</li>
+<li>model of concepts? (-&gt; Implementation)
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Implementation</h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Ideas</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li>language:
+<ul>
+<li>Shen
+<ul>
+<li>pros: Lisp, built-in Prolog engine, lexer, etc
+</li>
+<li>cons: have to learn it, almost no libraries/tools/etc, difficult setup, nobody else knows it
+</li>
+</ul>
+
+</li>
+<li>Common Lisp
+<ul>
+<li>pros: Lisp, already know it, many libraries
+</li>
+<li>cons: few people know/like it
+</li>
+</ul>
+
+</li>
+<li>???
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Goals</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>My goal for the project is a program generating music live and continuously based on some input given by the user
+</p><ul>
+<li>main project goals:
+<ol>
+<li><code>[&nbsp;]</code> concepts for very basic model (music)
+</li>
+<li><code>[&nbsp;]</code> idea stream
+</li>
+<li><code>[&nbsp;]</code> running program
+</li>
+</ol>
+
+</li>
+<li>optional project goals:
+<ol>
+<li><code>[&nbsp;]</code> some kind of concept extraction/generation
+</li>
+<li><code>[&nbsp;]</code> less restricted concept model (still music)
+</li>
+<li><code>[&nbsp;]</code> offline composition mode
+</li>
+</ol>
+
+</li>
+<li>further goals:
+<ol>
+<li><code>[&nbsp;]</code> more general concept model
+</li>
+<li><code>[&nbsp;]</code> exchange with other concept databases (collaboration)
+</li>
+<li><code>[&nbsp;]</code> 
+</li>
+</ol>
+
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-10-26 19:11:34 EEST</p>
+<p class="author">Author: Christoph Finkensiep</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
