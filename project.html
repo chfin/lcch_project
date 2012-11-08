@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="title" content="LCCH Project"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-10-26 19:11:34 EEST"/>
+<meta name="generated" content="2012-11-09 00:54:03 EET"/>
 <meta name="author" content="Christoph Finkensiep"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -440,6 +440,82 @@
 </ul>
 
 </li>
+<li>pattern extraction:
+<ol>
+<li>'parse' input
+<ul>
+<li>e.g. two quarter notes c become "c4 c4"
+</li>
+</ul>
+
+</li>
+<li>abstract step by step:
+<dl>
+<dt>parametric form</dt><dd>replace parameters by variables, identical parameters (meaning and value) become identical variables
+<ul>
+<li>e.g. "c4 c4" -&gt; "n&lt;H,L&gt; n&lt;H,L&gt;"
+</li>
+</ul>
+
+</dd>
+<dt>structural form</dt><dd>remove 'types', the <i>structure</i> is left
+<ul>
+<li>e.g. "n&lt;H,L&gt; n&lt;H,L&gt;" -&gt; "X X"
+</li>
+</ul>
+
+</dd>
+<dt>relative form</dt><dd>relations between entities are taken into account
+<ul>
+<li>e.g. "c2 c4" -&gt; "n&lt;H,L&gt; n&lt;H,half(L)&gt;"
+</li>
+</ul>
+
+</dd>
+<dt>constrainted form</dt><dd>variable are constrainted, can express relative form
+<ul>
+<li>e.g. "X1 X2 X3 | cmaj(X1) cmaj(X2) cmaj(X3)" -&gt; 3 notes from c-major scale
+</li>
+<li>e.g. "n&lt;H,L1&gt; n&lt;H,L2&gt; | halfof(L2,L1)" (see ex. for relative form)
+</li>
+</ul>
+
+</dd>
+<dt>semantic abstraction</dt><dd>this is difficult. Find some abstraction or generalisation of the structural form e.g.
+<ul>
+<li>"X X" -&gt; "<i>repeat X N times</i>"
+</li>
+</ul>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+</li>
+<li>concept language
+<ul>
+<li>not turing complete (first)
+</li>
+<li>only discrete values
+</li>
+<li>built in value sets and relations
+<ul>
+<li>scale / range? (chromatic, diatonic, pentatonic, etc.)
+</li>
+<li>intervals?
+</li>
+<li>scales? (in terms of sets / successor relations)
+</li>
+</ul>
+
+</li>
+<li>operators
+</li>
+</ul>
+
+</li>
 </ul>
 
 
@@ -481,8 +557,11 @@
 <li><code>[&nbsp;]</code> more general concept model
 </li>
 <li><code>[&nbsp;]</code> exchange with other concept databases (collaboration)
-</li>
+<ol>
 <li><code>[&nbsp;]</code> 
+</li>
+</ol>
+
 </li>
 </ol>
 
@@ -494,7 +573,7 @@
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-10-26 19:11:34 EEST</p>
+<p class="date">Date: 2012-11-09 00:54:03 EET</p>
 <p class="author">Author: Christoph Finkensiep</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

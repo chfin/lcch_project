@@ -100,6 +100,29 @@
     - pros: Lisp, already know it, many libraries
     - cons: few people know/like it
   - ???
+- pattern extraction:
+  1. 'parse' input
+     - e.g. two quarter notes c become "c4 c4"
+  2. abstract step by step:
+     - parametric form :: replace parameters by variables, identical parameters (meaning and value) become identical variables
+       - e.g. "c4 c4" -> "n<H,L> n<H,L>"
+     - structural form :: remove 'types', the /structure/ is left
+       - e.g. "n<H,L> n<H,L>" -> "X X"
+     - relative form :: relations between entities are taken into account
+       - e.g. "c2 c4" -> "n<H,L> n<H,half(L)>"
+     - constrainted form :: variable are constrainted, can express relative form
+       - e.g. "X1 X2 X3 | cmaj(X1) cmaj(X2) cmaj(X3)" -> 3 notes from c-major scale
+       - e.g. "n<H,L1> n<H,L2> | halfof(L2,L1)" (see ex. for relative form)
+     - semantic abstraction :: this is difficult. Find some abstraction or generalisation of the structural form e.g.
+       - "X X" -> "/repeat X N times/"
+- concept language
+  - not turing complete (first)
+  - only discrete values
+  - built in value sets and relations
+    - scale / range? (chromatic, diatonic, pentatonic, etc.)
+    - intervals?
+    - scales? (in terms of sets / successor relations)
+  - operators
 
 * Goals
 My goal for the project is a program generating music live and continuously based on some input given by the user
@@ -114,4 +137,4 @@ My goal for the project is a program generating music live and continuously base
 - further goals:
   1. [ ] more general concept model
   2. [ ] exchange with other concept databases (collaboration)
-  3. [ ] 
+     1. [ ] 
