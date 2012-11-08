@@ -83,11 +83,12 @@
   The user can give additional input at runtime to influence the improvisation
   - variant: together with other instances
 - offline composition, with/without initial input
-
+  
 ** Open questions
 - can concepts be extended to contain general (logical) knowledge?
 - how can actions be derived from concepts?
 - model of concepts? (-> Implementation)
+- what about David Cohen?
 
 * Implementation
 
@@ -123,6 +124,11 @@
     - intervals?
     - scales? (in terms of sets / successor relations)
   - operators
+
+*** technical stuff
+- Audio Output:
+  - portmidi library: http://sourceforge.net/apps/trac/portmedia/wiki/portmidi
+  - CL bindings: https://github.com/chfin/cl-portmidi
 
 * Goals
 My goal for the project is a program generating music live and continuously based on some input given by the user
