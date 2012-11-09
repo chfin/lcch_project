@@ -103,19 +103,19 @@
   - ???
 - pattern extraction:
   1. 'parse' input
-     - e.g. two quarter notes c become "c4 c4"
+     - e.g. two quarter notes c become =<c,4> <c,4>=
   2. abstract step by step:
      - parametric form :: replace parameters by variables, identical parameters (meaning and value) become identical variables
-       - e.g. "c4 c4" -> "n<H,L> n<H,L>"
+       - e.g. =<c,4> <c,4>= -> =<H,L> <H,L>=
      - structural form :: remove 'types', the /structure/ is left
-       - e.g. "n<H,L> n<H,L>" -> "X X"
-     - relative form :: relations between entities are taken into account
-       - e.g. "c2 c4" -> "n<H,L> n<H,half(L)>"
+       - e.g. =<H,L> <H,L>= -> =X X=
+     - +relative form+ :: relations between entities are taken into account
+       - e.g. =<c,2> <c,4>= -> =<H,L> <H,half(L)>=
      - constrainted form :: variable are constrainted, can express relative form
-       - e.g. "X1 X2 X3 | cmaj(X1) cmaj(X2) cmaj(X3)" -> 3 notes from c-major scale
-       - e.g. "n<H,L1> n<H,L2> | halfof(L2,L1)" (see ex. for relative form)
-     - semantic abstraction :: this is difficult. Find some abstraction or generalisation of the structural form e.g.
-       - "X X" -> "/repeat X N times/"
+       - e.g. =X1 X2 X3 : cmaj(X1) cmaj(X2) cmaj(X3)= -> 3 notes from c-major scale
+       - e.g. =<H,L1> <H,L2> : double_length(L1,L2)= (see ex. for relative form)
+     - semantic abstraction (?) :: this is difficult. Find some abstraction or generalisation of the structural form e.g.
+       - =X X= -> "/repeat X N times/"
 - concept language
   - not turing complete (first)
   - only discrete values
@@ -149,7 +149,7 @@
       - true constraints can be removed
       - note that variables may also appear _only_ in the _constraints_!
     - Values:
-      - variable :: arbitrary, but for notation purpose all valid C identifiers
+      - variable :: arbitrary, but for notation purpose all valid C identifiers starting uppercase
       - heightval :: lets start with a pentatonic scale (+ octave): {c', d', e', g', a', c''}
       - durval :: from whole notes to 16ths, no compounds: {1, 2, 4, 8, 16}
       - cname :: denotes constraints, for example:
