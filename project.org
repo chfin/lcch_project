@@ -94,7 +94,7 @@
 
 ** Ideas
 - language:
-  - Shen
+  - +Shen+
     - pros: Lisp, built-in Prolog engine, lexer, etc
     - cons: have to learn it, almost no libraries/tools/etc, difficult setup, nobody else knows it
   - Common Lisp
@@ -124,6 +124,39 @@
     - intervals?
     - scales? (in terms of sets / successor relations)
   - operators
+  - +only structure!+
+  - proposed rules:
+    - Grammar:
+      - =rule = { term } [ ":" { constraint } ];=
+      - =term = termvar | note;=
+      - =termvar = variable;=
+      - =note = "<" height "," duration ">";=
+      - =height = heightval | heightvar;=
+      - =heightvar = variable;=
+      - =duration = durval | durvar;=
+      - =durvar = variable;=
+      - =constraint = [ "!" ] cname "(" variable { "," variable } ")";=
+    - Instatiation:
+      - rule is basic instance, if it contains no constraints or variables
+      - rule can be instaciated by replacing variables with values:
+	- termvars are replaced by basic instances
+	- heightvars are replaced by heightvals
+	- durvars are replaced by durvals
+      - same variables are replaced by the same value in one step
+      - variables in constraints are also replaced
+      - the value of constraints preceded by "!" is inverted.
+      - constraints without variables must evaluate to true
+      - true constraints can be removed
+      - note that variables may also appear _only_ in the _constraints_!
+    - Values:
+      - variable :: arbitrary, but for notation purpose all valid C identifiers
+      - heightval :: lets start with a pentatonic scale (+ octave): {c', d', e', g', a', c''}
+      - durval :: from whole notes to 16ths, no compounds: {1, 2, 4, 8, 16}
+      - cname :: denotes constraints, for example:
+	- =higher (x: heightval, y: heightval)= -> =x= is higher than =y=
+	- =next (x: heightval, y: heightval)= -> =x= is the next higher note after =y=
+	- =longer (x: durval, y: durval)= -> =x= is longer than =y=
+	- =double_length (x: durval, y: durval)= -> =x= is twice as long as =y=
 
 *** technical stuff
 - Audio Output:
