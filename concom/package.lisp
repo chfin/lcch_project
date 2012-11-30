@@ -1,5 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:concom
-  (:use #:cl))
+  (:use #:cl #:alexandria))
 
