@@ -157,6 +157,10 @@
 	- =next (x: heightval, y: heightval)= -> =x= is the next higher note after =y=
 	- =longer (x: durval, y: durval)= -> =x= is longer than =y=
 	- =double_length (x: durval, y: durval)= -> =x= is twice as long as =y=
+- thinking process:
+  - impro:
+    - ideas constantly generated, refined, etc.
+    - "pulled" out by timer, requesting the currently most interesting idea
 
 *** technical stuff
 - Audio Output:
