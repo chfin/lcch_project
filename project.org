@@ -93,14 +93,9 @@
 * Implementation
 
 ** Ideas
+
 - language:
-  - +Shen+
-    - pros: Lisp, built-in Prolog engine, lexer, etc
-    - cons: have to learn it, almost no libraries/tools/etc, difficult setup, nobody else knows it
   - Common Lisp
-    - pros: Lisp, already know it, many libraries
-    - cons: few people know/like it
-  - ???
 - pattern extraction:
   1. 'parse' input
      - e.g. two quarter notes c become =<c,4> <c,4>=
@@ -116,7 +111,8 @@
        - e.g. =<H,L1> <H,L2> : double_length(L1,L2)= (see ex. for relative form)
      - semantic abstraction (?) :: this is difficult. Find some abstraction or generalisation of the structural form e.g.
        - =X X= -> "/repeat X N times/"
-- concept language
+
+*** concept language
   - not turing complete (first)
   - only discrete values
   - built in value sets and relations
@@ -157,10 +153,48 @@
 	- =next (x: heightval, y: heightval)= -> =x= is the next higher note after =y=
 	- =longer (x: durval, y: durval)= -> =x= is longer than =y=
 	- =double_length (x: durval, y: durval)= -> =x= is twice as long as =y=
-- thinking process:
-  - impro:
-    - ideas constantly generated, refined, etc.
-    - "pulled" out by timer, requesting the currently most interesting idea
+
+*** The "brain"
+- impro:
+  - ideas constantly generated, refined, etc.
+  - "pulled" out by timer, requesting the currently most interesting idea
+- structure:
+  - memory :: contains the complete set of known concepts
+    - ideas should be somehow weighted and connected
+    - weight resembles roughly the probability to come to the /mind/
+    - weight is increased by using similar concepts, decreased by time
+    - connections are used to express
+      1. semantic connections between concepts
+      2. "relatedness" between concepts
+	 (used for weighting, bringing stuff to the /mind/, etc.)
+  - mind :: Contains currently most interesting concepts.
+	    Only concepts in the /mind/ are used for thinking,
+	    but concepts similar to the used ones can go to the /mind/,
+	    if referred by /mind/-concepts.
+    - heap structure (?)
+    - weight decreases by time and increases by use
+    - weight marks probability to be used in the next step
+    - threshold for going to /memory/
+      (max. number of concepts in mind, minimum weight, ...)
+- possibilities for weight calculation:
+  - exponential moving average (alpha = ?)
+    - 0 = not used, 1 = used
+    - (1/2)^k if shortest path to used concept has k edges
+- thinking algorithm:
+  1. select concept from /mind/ with probability (w_i / sum(w_i))
+  2. think about concept to create a new one (depends on concept language)
+  3. determine concepts related to the new concept
+  4. assign y to concepts (y=0, if not related, y>0 if related)
+  5. calculate new weights w to concepts (exponential moving average)
+  6. drop stuff with small weights from /mind/ to /memory/
+  7. push stuff with high weights from /memory/ to /mind/
+    (good idea? better approaches for /memory/ -> /mind/?)
+- relation measure
+  - relation coefficient: [0,1], 0=unrelated, 1=identical
+  - every concept has a set of related concepts, graph with weighted edges
+  - weight of path is product of edge weights
+  - "best" path = "heaviest" path
+  - path weight used for weight calculation of concepts (weight of nodes)
 
 *** technical stuff
 - Audio Output:
