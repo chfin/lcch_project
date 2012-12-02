@@ -8,6 +8,8 @@
   :depends-on (#:alexandria #:bordeaux-threads)
   :components ((:file "package")
 	       (:file "notes")
+	       (:file "concept")
 	       (:file "brain")
+	       (:file "coolbrain")
 	       (:file "output")
                (:file "concom")))
