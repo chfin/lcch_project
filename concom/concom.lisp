@@ -16,7 +16,8 @@
 `input` is some initial music input (topic of the improvisation).
 If it is `nil`, the brain will use what ever is on its mind (literally).
 `output` can be some music output channel (defaults to `*standard-output*` for textual output`)."
-  (set-topic brain input)
+  (when input
+    (set-topic brain input))
   (start-thinking brain)
   (bordeaux-threads:make-thread
      (lambda ()

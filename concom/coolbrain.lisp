@@ -28,7 +28,7 @@
 (defvar *default-best-concepts-count* 10
   "If the mind is empty, this is the default number of concepts to draw from the memory.")
 
-(defvar *debug-cool-brain* t)
+(defvar *debug-cool-brain* nil)
 
 ;;; class definition
 
@@ -62,18 +62,34 @@
 ;;; brain interface implementation
 
 (defmethod start-thinking ((brain cool-brain))
-  (setf (cool-brain-thinking-p brain) t)
-  (bordeaux-threads:make-thread
-   (lambda () (cool-thinking brain))))
+  (when (not (cool-brain-thinking-p brain))
+    (setf (cool-brain-thinking-p brain) t)
+    (bordeaux-threads:make-thread
+     (lambda ()
+       (let ((*standard-output* (if *debug-cool-brain*
+				    *standard-output*
+				    (make-broadcast-stream))))
+	 (cool-thinking brain))))))
 
 (defmethod stop-thinking ((brain cool-brain))
   (setf (cool-brain-thinking-p brain) nil))
 
 (defmethod set-topic ((brain cool-brain) music)
-  (error "set-topic not implemented for cool-brain"))
+  (with-slots (mind memory) brain
+    (let* ((nc (make-instance 'music-concept :structure music))
+	   (ex (find c (hash-table-keys memory) :test #'equals))
+	   (concept (or ex nc)))
+      (setf (gethash concept memory) 1)
+      (pushnew concept mind :test #'equals)
+      concept)))
 
 (defmethod get-next-music ((brain cool-brain))
-  (error "get-next-music not implemented for cool-brain"))
+  (with-slots (mind memory random-state) brain
+    (let* ((candidates (remove-if #'contains-vars mind))
+	   (terms (or candidates (some-music brain)))
+	   (weights (mapcar (lambda (c) (gethash c memory 0)) terms))
+	   (term (draw-weighted terms weights random-state)))
+      (music-concept-structure term))))
 
 ;;; additional implementation
 
@@ -93,7 +109,11 @@ Should be called from a new thread."
       (setf mind (get-me-some-concepts memory)))
     (when mind
       (let* ((concept (select-concept brain))
-	     (newcon (think-about concept brain))
+	     (thought (think-about concept brain))
+	     (existing (find thought (hash-table-keys memory) :test #'equals))
+	     (newcon (if existing
+			 (update-concept existing thought)
+			 thought))
 	     (newweights (new-weights newcon brain)))
 	(update-weights brain newweights)
 	(update-mind brain)
@@ -181,7 +201,7 @@ considering the values in `newweights`"
 (defun get-me-some-concepts (memory &optional (n *default-best-concepts-count*))
   "=> at most `n` concepts from `memory`"
   (let ((cs (hash-table-keys memory)))
-      (loop for i from 1 to n while cs
-	 collect (let ((re (random-elt cs)))
-		   (setf cs (remove re cs))
-		   re))))
+    (loop for i from 1 to n while cs
+       collect (let ((re (random-elt cs)))
+		 (setf cs (remove re cs))
+		 re))))

@@ -19,6 +19,9 @@
 The new concept might already exist.
 Additional information from `brain` may be used but the new concept should be somehow related to `concept`."))
 
+(defgeneric update-concept (concept updates)
+  (:documentation "=> `concept` with `updates` applied"))
+
 ;;; random integer implementation
 ;;; An integer is seen as a concept. Its neighbours are seen as related.
 
@@ -28,6 +31,9 @@ Additional information from `brain` may be used but the new concept should be so
 
 (defmethod think-about ((concept integer) brain)
   (+ concept (if (= 1 (random 2)) 1 -1)))
+
+(defmethod update-concept ((concept integer) (updates integer))
+  concept)
 
 ;; for a bit more randomness:
 (setf *random-state* (make-random-state t))

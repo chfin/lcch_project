@@ -1,5 +1,5 @@
 ;;;; utils.lisp
-;;;; Some functions used in several places or just for user convenience.
+;;;; Some functions used in several places.
 
 ;;;; Copyright 2012 Christoph Finkensiep
 ;;;; This file is subject to the GUN General Public License version 3.
@@ -27,43 +27,22 @@ For each item `i` in `set`, the corresponding value in `weights` denotes `i`'s w
 	   (n (find-interval sums (random (car sums) random-state))))
       (nth n set))))
 
-(defun make-concept (structure)
-  (make-instance 'music-concept :structure structure))
+(defun some-music (brain &optional (n *default-best-concepts-count*))
+  "=> at most `n` terms from the memory of `brain` without variables"
+  (with-slots (memory) brain
+    (let ((ts (remove-if #'contains-vars (hash-table-keys memory))))
+      (loop  for i from 1 to n while ts
+	 collect (let ((re (random-elt ts)))
+		   (setf ts (remove re ts))
+		   re)))))
 
-(defun make-example-brain* ()
-  "=> an instance of `cool-brain`, initialized with some integers"
-  (let ((brain (make-instance 'cool-brain)))
-    (with-slots (mind memory) brain
-      (setf memory (alist-hash-table '((1 . 0.5) (2 . 0.3) (3 . 0.3) (4 . 0.7))))
-      (setf mind (list 1 2)))
-    brain))
+;;; equality of musical expressions
 
-(defvar *example-brain-ideas*
-  (list (list (note :c 4)
-	      (note :d 4)
-	      (note :e 4)
-	      (note :g 4)
-	      (note :a 4)
-	      (note :c* 4))
-	(list (note :c* 4)
-	      (note :d* 4)
-	      (note :e* 4)
-	      (note :g* 4)
-	      (note :a* 4)
-	      (note :c** 4))
-	(list (var-note 'x 4)
-	      (var-note 'x 8)
-	      (var-note 'x 8)
-	      (var-note 'x 2))
-	(list 'x 'x)))
+(defgeneric equals (a b)
+  (:documentation "=> t, if a and b are equal, nil otherwise"))
 
-(defun make-example-brain ()
-  "=> an instance of `cool-brain` with some musical expressions"
-  (let* ((concepts (mapcar #'make-concept *example-brain-ideas*))
-	 (mem (mapcar (lambda (c) (cons c 1)) concepts)))
-    (make-instance 'cool-brain
-		   :memory (alist-hash-table mem)
-		   :mind concepts)))
+(defmethod equals (a b)
+  (equal a b))
 
-(defvar *example-concept*
-  (make-concept (list 'x 'x (var-note 'p 'd1) (var-note 'p 'd2))))
+(defmethod equals ((a symbol) (b symbol))
+  (eq a b))

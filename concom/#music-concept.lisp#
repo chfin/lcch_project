@@ -132,15 +132,6 @@ generalizations and instanciations.")
 		      (term (draw-weighted terms weights random-state)))
 		 (music-concept-structure term))))))))
 
-(defun some-music (brain &optional (n *default-best-concepts-count*))
-  "=> at most `n` terms from the memory of `brain` without variables"
-  (with-slots (memory) brain
-    (let ((ts (remove-if #'contains-vars (hash-table-keys memory))))
-      (loop  for i from 1 to n while ts
-	 collect (let ((re (random-elt ts)))
-		   (setf ts (remove re ts))
-		   re)))))
-
 ;;; Additional implementation
 
 (defun contains-vars (concept)

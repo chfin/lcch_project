@@ -154,6 +154,14 @@
 	- =longer (x: durval, y: durval)= -> =x= is longer than =y=
 	- =double_length (x: durval, y: durval)= -> =x= is twice as long as =y=
 
+*** Concept derivation
+- generalize with probability =alpha=, specialize with =(1-alpha)=
+- =alpha<0.5=, so that eventually actual musical terms will be produced.
+- specialization:
+  - take musical terms from mind, with probabilities according to weight and simplicity
+  - substitute bottom up: substitute variables only with terms without variables.
+  - prefer longer terms (?)
+
 *** The "brain"
 - impro:
   - ideas constantly generated, refined, etc.

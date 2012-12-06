@@ -19,4 +19,5 @@
 	       (:file "coolbrain")
 	       (:file "music-concept")
 	       (:file "output")
-               (:file "concom")))
+               (:file "concom")
+	       (:file "repl-helpers")))
