@@ -10,7 +10,7 @@
 
 ;;; special vars for default brain values
 
-(defvar *cool-brain-default-interval* 1
+(defvar *cool-brain-default-interval* 0.2
   "Default interval between thoughts in seconds.")
 
 (defvar *cool-brain-default-alpha* 0.5
@@ -61,14 +61,13 @@
 
 ;;; brain interface implementation
 
-(defmethod start-thinking ((brain cool-brain))
+(defmethod start-thinking ((brain cool-brain)
+			   &optional (debug *debug-cool-brain*))
   (when (not (cool-brain-thinking-p brain))
     (setf (cool-brain-thinking-p brain) t)
     (bordeaux-threads:make-thread
      (lambda ()
-       (let ((*standard-output* (if *debug-cool-brain*
-				    *standard-output*
-				    (make-broadcast-stream))))
+       (let ((*debug-cool-brain* debug))
 	 (cool-thinking brain))))))
 
 (defmethod stop-thinking ((brain cool-brain))
@@ -118,7 +117,7 @@ Should be called from a new thread."
 	(update-weights brain newweights)
 	(update-mind brain)
 	(when *debug-cool-brain*
-	  (format t "~&~%Thinking step:~%mind: ~a~%memory: ~a items~%used concept: ~a~%resulting concept: ~a~%"
+	  (format t "~&Thinking step:~%mind: ~a~%memory: ~a items~%used concept: ~a~%resulting concept: ~a~%"
 		  mind (hash-table-count memory) concept newcon))))))
 
 (defun select-concept (brain)
@@ -126,22 +125,7 @@ Should be called from a new thread."
 selects a concept to think about from the mind"
   (with-slots (mind memory random-state) brain
     (let ((weights (mapcar (lambda (c) (gethash c memory 0)) mind)))
-      (draw-weighted mind weights random-state))
-    #|(labels ((w (c) (gethash c memory))
-	     (sumup (lst acc)
-	       (if lst
-		   (if acc
-		       (sumup (cdr lst) (cons (+ (car lst) (car acc)) acc))
-		       (sumup (cdr lst) (cons (car lst) nil)))
-		   acc))
-	     (find-interval (lst n)
-	       (if (or (null lst) (> n (car lst)))
-		   (length lst)
-		   (find-interval (cdr lst) n))))
-      (let* ((weights (mapcar #'w mind))
-	     (sums (sumup weights nil))
-	     (n (find-interval sums (random (car sums) random-state))))
-	(nth n mind)))|#))
+      (draw-weighted mind weights random-state))))
 
 (defun new-weights (concept brain &optional (path 1))
   "=> an alist of concepts and their weights

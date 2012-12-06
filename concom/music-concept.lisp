@@ -51,8 +51,8 @@ generalizations and instanciations.")
 	    (append generalizations instanciations))))
 
 (defmethod think-about ((concept music-concept) (brain cool-brain))
-  (if (or (and (print (contains-vars concept))
-	       (< (print (random 1.0 (cool-brain-random-state brain)))
+  (if (or (and (contains-vars concept)
+	       (< (random 1.0 (cool-brain-random-state brain))
 		  *thinking-direction-alpha*))
 	  (null (atomar-vals concept)))
       (specialize concept brain)
@@ -96,7 +96,7 @@ generalizations and instanciations.")
 (defun generalize (concept brain)
   "=> a more general concept, derived from `concept`"
   (declare (ignore brain))
-  (format t "~%Generalizing!")
+  (when *debug-cool-brain* (format t "~%Generalizing!"))
   (let* ((atoms (atomar-vals concept))
 	 (atom (random-elt atoms))
 	 (result (varify concept (car atom) (gensym (symbol-name (cdr atom))))))
@@ -108,9 +108,9 @@ generalizations and instanciations.")
 
 (defun specialize (concept brain)
   "=> an instanciation of `concept`"
-  (format t "~%Specializing!")
-  (let* ((vars (print (music-variables concept)))
-	 (bindings (print (mapcar (music-binder brain) vars)))
+  (when *debug-cool-brain* (format t "~%Specializing!")) 
+  (let* ((vars (music-variables concept))
+	 (bindings (mapcar (music-binder brain) vars))
 	 (result (subst-vars concept bindings)))
     (push concept (music-concept-gens result))
     (push result (music-concept-insts concept))
@@ -128,18 +128,9 @@ generalizations and instanciations.")
 	     (with-slots (mind memory random-state) brain
 	       (let* ((candidates (remove-if #'contains-vars mind))
 		      (terms (or candidates (some-music brain)))
-		      (weights (print (mapcar (lambda (c) (gethash c memory 0)) terms)))
+		      (weights (mapcar (lambda (c) (gethash c memory 0)) terms))
 		      (term (draw-weighted terms weights random-state)))
 		 (music-concept-structure term))))))))
-
-(defun some-music (brain &optional (n *default-best-concepts-count*))
-  "=> at most `n` terms from the memory of `brain` without variables"
-  (with-slots (memory) brain
-    (let ((ts (remove-if #'contains-vars (hash-table-keys memory))))
-      (loop  for i from 1 to n while ts
-	 collect (let ((re (random-elt ts)))
-		   (setf ts (remove re ts))
-		   re)))))
 
 ;;; Additional implementation
 

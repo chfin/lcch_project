@@ -7,6 +7,10 @@
 
 (defpackage #:concom
   (:use #:cl #:alexandria)
-  (:export #:cool-brain #:make-example-brain
-	   #:start-thinking #:stop-thinking))
-
+  (:export #:cool-brain
+	   #:improvise #:stop-impro
+	   #:start-thinking #:stop-thinking
+	   
+	   #:make-example-brain
+	   #:start-example-thinking #:stop-example-thinking
+	   #:start-example-impro))

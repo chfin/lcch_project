@@ -11,7 +11,7 @@
 
 ;;; brain interface
 
-(defgeneric start-thinking (brain)
+(defgeneric start-thinking (brain &optional debug)
   (:documentation "Should do the setup for the brain to start thinking (e.g. starting a thread with a loop)."))
 
 (defgeneric stop-thinking (brain)
@@ -26,7 +26,7 @@ If `music` is nil, nothing should happen."))
 
 ;;; fallback methods
 
-(defmethod start-thinking (brain) nil)
+(defmethod start-thinking (brain &optional debug) nil)
 (defmethod stop-thinking (brain) nil)
 (defmethod set-topic (brain music) nil)
 (defmethod get-next-music (brain) nil)

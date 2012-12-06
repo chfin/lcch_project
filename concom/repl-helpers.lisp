@@ -44,6 +44,16 @@
   (make-concept (list 'x 'x (var-note 'p 'd1) (var-note 'p 'd2))))
 
 ;;; running stuff
+
 (defun start-example-impro ()
   (let ((brain (make-example-brain)))
     (improvise brain nil)))
+
+(let ((*cool-brain-default-interval* 1))
+  (defparameter *ex-brain* (make-example-brain)))
+
+(defun start-example-thinking ()
+  (start-thinking *ex-brain* t))
+
+(defun stop-example-thinking ()
+  (stop-thinking *ex-brain*))
