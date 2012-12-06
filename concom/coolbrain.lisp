@@ -1,6 +1,11 @@
 ;;;; coolbrain.lisp
 ;;;; Contains the real brain implementation.
 
+;;;; Copyright 2012 Christoph Finkensiep
+;;;; This file is subject to the GUN General Public License version 3.
+;;;; If a copy of the GNU GPLv3 was not distributed with this file,
+;;;; You can obtain one at <http://www.gnu.org/licenses/>
+
 (in-package #:concom)
 
 ;;; special vars for default brain values
@@ -97,7 +102,9 @@ Should be called from a new thread."
   "=> a random concept from `mind`
 selects a concept to think about from the mind"
   (with-slots (mind memory random-state) brain
-    (labels ((w (c) (gethash c memory))
+    (let ((weights (mapcar (lambda (c) (gethash c memory 0)) mind)))
+      (draw-weighted mind weights random-state))
+    #|(labels ((w (c) (gethash c memory))
 	     (sumup (lst acc)
 	       (if lst
 		   (if acc
@@ -111,7 +118,7 @@ selects a concept to think about from the mind"
       (let* ((weights (mapcar #'w mind))
 	     (sums (sumup weights nil))
 	     (n (find-interval sums (random (car sums) random-state))))
-	(nth n mind)))))
+	(nth n mind)))|#))
 
 (defun new-weights (concept brain &optional (path 1))
   "=> an alist of concepts and their weights

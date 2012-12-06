@@ -32,3 +32,7 @@ The output after "Thinking step:" shows:
 * the number of concepts in the brain's memory after the step
 * the concept used as input in this step
 * the resulting new concept
+
+## License
+
+ConCom is published under the GNU GPLv3 (see LICENSE file).

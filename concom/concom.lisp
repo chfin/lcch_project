@@ -1,6 +1,11 @@
 ;;;; concom.lisp
 ;;;; Contains the main entry-points to concom (i.e. `improvise`, so far).
 
+;;;; Copyright 2012 Christoph Finkensiep
+;;;; This file is subject to the GUN General Public License version 3.
+;;;; If a copy of the GNU GPLv3 was not distributed with this file,
+;;;; You can obtain one at <http://www.gnu.org/licenses/>
+
 (in-package #:concom)
 
 (defvar *impro-running* nil)
