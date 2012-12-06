@@ -17,5 +17,6 @@
 	       (:file "concept")
 	       (:file "brain")
 	       (:file "coolbrain")
+	       (:file "music-concept")
 	       (:file "output")
                (:file "concom")))

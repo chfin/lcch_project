@@ -20,9 +20,13 @@ generalizations and instanciations.")
 ;;; class definition
 
 (defclass music-concept ()
-  ((structure :reader music-concept-structure)
-   generalizations
-   instanciations))
+  ((structure :reader music-concept-structure
+	      :initarg :structure
+	      :initform (error "No :structure provided"))
+   (generalizations :accessor music-concept-gens
+		    :initform nil)
+   (instanciations :accessor music-concept-insts
+		   :initform nil)))
 
 ;;; interface implementation
 
@@ -40,21 +44,112 @@ generalizations and instanciations.")
       (generalize concept brain)
       (specialize concept brain)))
 
+;;; Note variables
+
+(defclass var-note ()
+  ((pitch :initarg :p
+	  :initform (error "pitch not provided")
+	  :reader var-note-pitch)
+   (duration :initarg :d
+	     :initform (error "duration not provided")
+	     :reader var-note-dur)))
+
+(defun var-note (pitch duration)
+  "=> an instance of `var-note` with `pitch` as pitch and `duration` as duration"
+  (make-instance 'var-note :p pitch :d duration))
+
+;;; generalization
+
+(defun generalize (concept brain)
+  "=> a more general concept, derived from `concept`"
+  concept);;TODO: implement generalize
+
+;;; specialization
+
+(defun specialize (concept brain)
+  "=> an instanciation of `concept`"
+  (let* ((vars (music-variables concept))
+	 (bindings (print (mapcar (music-binder brain) vars)))
+	 (result (subst-vars concept bindings)))
+    (push concept (music-concept-gens result))
+    (push result (music-concept-insts concept))
+    result))
+
+;;Ok, now this is really dumb. Just take a random element.
+(defun music-binder (brain)
+  "=> a function, that creates a binding for a variable with some value"
+  (lambda (var)
+    (cons (car var)
+	  (case (cdr var)
+	    (:pitch (random-elt *pitches*))
+	    (:duration (random-elt *durations*))
+	    (:music
+	     (with-slots (mind memory random-state) brain
+	       (let* ((terms (remove-if #'contains-vars mind))
+		      (weights (mapcar (lambda (c) (gethash c memory 0)) terms))
+		      (term (draw-weighted terms weights random-state)))
+		 (music-concept-structure term))))))))
+
 ;;; Additional implementation
 
 (defun contains-vars (concept)
   "=> `t` if `concept` contains variables, `nil` if it is an basic musical expression"
-  (not (every (lambda (subt) (typep subt note))
+  (not (every (lambda (subt) (typep subt 'note))
 	      (music-concept-structure concept))))
 
-(defun generalize (concept brain)
-  "=> a more general concept, derived from `concept`"
-  concept) ;;TODO: implement generalize
+;;; getting variables
 
-(defun specialize (concept brain)
-  "=> an instanciation of `concept`"
-  concept) ;;TODO: implement specialize
+(defgeneric music-variables (expression)
+  (:documentation
+   "=> the alist of variables and their types contained in `expression`
+Valid types are `:music`, `:pitch`, and `:duration`."))
 
-;;TODO implement functions used in think-about
+(defmethod music-variables (exp)
+  (declare (ignore exp))
+  nil)
 
-;(defun variables )
+(defmethod music-variables ((exp symbol))
+  (list (cons exp :music)))
+
+(defmethod music-variables ((exp var-note))
+  (with-slots (pitch duration) exp
+    (let ((vars nil))
+      (when (and (symbolp pitch) (not (keywordp pitch)))
+	(push (cons pitch :pitch) vars))
+      (when (symbolp duration)
+	(push (cons duration :duration) vars)))))
+
+(defmethod music-variables ((exp music-concept))
+  (remove-duplicates
+   (mapcan #'music-variables (music-concept-structure exp))
+   :key #'car))
+
+;;; substituting variables
+
+(defun bval (var bindings)
+  (or (assoc-value bindings var)
+      (error "No binding for ~a" var)))
+
+(defgeneric subst-vars (exp bindings)
+  (:documentation "=> `exp` with variables substituted according to `bindings`"))
+
+(defmethod subst-vars (exp bindings)
+  exp)
+
+(defmethod subst-vars ((exp symbol) bindings)
+  (bval exp bindings))
+
+(defmethod subst-vars ((exp var-note) bindings)
+  (with-slots (pitch duration) exp
+    (let ((p (if (keywordp pitch)
+		 pitch
+		 (bval pitch bindings)))
+	  (d (if (symbolp duration)
+		 (bval duration bindings)
+		 duration)))
+      (note p d))))
+
+(defmethod subst-vars ((exp music-concept) bindings)
+  (with-slots (structure) exp
+    (let ((strnew (mapcar (lambda (e) (subst-vars e bindings)) structure)))
+      (make-instance 'music-concept :structure strnew))))

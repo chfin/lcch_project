@@ -33,8 +33,11 @@
 ;;; class definition
 
 (defclass cool-brain ()
-  (mind
-   (memory :initform (make-hash-table))
+  ((mind :initform nil
+	 :initarg :mind
+	 :reader cool-brain-mind)
+   (memory :initform (make-hash-table)
+	   :initarg :memory)
    (thinking :initform nil
 	     :accessor cool-brain-thinking-p
 	     :type boolean)
@@ -182,13 +185,3 @@ considering the values in `newweights`"
 	 collect (let ((re (random-elt cs)))
 		   (setf cs (remove re cs))
 		   re))))
-
-;;; utilities
-
-(defun make-example-brain ()
-  "=> an instance of `cool-brain`, initialized with some integers"
-  (let ((brain (make-instance 'cool-brain)))
-    (with-slots (mind memory) brain
-      (setf memory (alist-hash-table '((1 . 0.5) (2 . 0.3) (3 . 0.3) (4 . 0.7))))
-      (setf mind (list 1 2)))
-    brain))
